@@ -1,0 +1,37 @@
+{
+  "name": "@efrem/initjs",
+  "version": "1.0.4",
+  "main": "dist/index.js",
+  "repository": "https://github.com/MrEfrem/initjs.git",
+  "author": "MrEfrem <mr.efrem@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node -r @babel/register src/index.js",
+    "outdated": "yarn upgrade-interactive",
+    "build": "babel src -d dist"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.6",
+    "@babel/preset-env": "^7.8.6",
+    "@babel/register": "^7.8.6",
+    "@types/node": "^13.7.7",
+    "@yarnpkg/pnpify": "^2.0.0-rc.18",
+    "babel-eslint": "^10.1.0",
+    "core-js": "^3.6.4",
+    "eslint": "^6.8.0",
+    "prettier": "^1.19.1",
+    "typescript": "^3.8.3"
+  },
+  "bin": "dist/index.js",
+  "files": [
+    "dist",
+    "files"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=10"
+  }
+}
