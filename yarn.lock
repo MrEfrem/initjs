@@ -1036,6 +1036,8 @@ __metadata:
     eslint: ^6.8.0
     prettier: ^1.19.1
     typescript: ^3.8.3
+  bin:
+    initjs: dist/index.js
   languageName: unknown
   linkType: soft
 
