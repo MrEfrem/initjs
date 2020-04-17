@@ -123,7 +123,7 @@ if (newProject) {
 let requiredDependencies = [];
 if (packageJSON.dependencies) {
   const { dependencies } = packageJSON;
-  basisDependencies.forEach(dependency => {
+  basisDependencies.forEach((dependency) => {
     if (!dependencies[dependency]) {
       requiredDependencies.push(dependency);
     }
@@ -146,7 +146,7 @@ if (requiredDependencies.length) {
 let requiredDevDependencies = [];
 if (packageJSON.devDependencies) {
   const { devDependencies } = packageJSON;
-  basisDevDependencies.forEach(devDependency => {
+  basisDevDependencies.forEach((devDependency) => {
     if (!devDependencies[devDependency]) {
       requiredDevDependencies.push(devDependency);
     }
@@ -169,7 +169,7 @@ if (requiredDevDependencies.length) {
 const files = fs.readdirSync('.');
 /** @type {Array<string>} */
 const foundConfigFiles = [];
-files.forEach(filename => {
+files.forEach((filename) => {
   if (basisPackagesConfigFiles.includes(filename)) {
     foundConfigFiles.push(filename);
   }
