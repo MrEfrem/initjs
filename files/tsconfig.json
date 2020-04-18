@@ -12,5 +12,13 @@
     "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true
   },
-  "exclude": ["node_modules", "build/output", "dist"]
+  "exclude": [
+    "node_modules",
+    "build/output",
+    "dist",
+    ".idea",
+    ".vscode",
+    ".yarn",
+    ".pnp.js"
+  ]
 }

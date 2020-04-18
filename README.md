@@ -2,9 +2,22 @@
 
 ## Using
 
+### Yarn 2 (berry)
+
 ```bash
-initjs [<project name>]
+yarn dlx @efrem/initjs [<project name>]
 ```
+
+### Npm
+
+```bash
+npx @efrem/initjs [<project name>]
+```
+
+`<project name>` is optional. If it isn't set then:
+
+1. If a current directory contains existing project (contains `package.json`) then it should be `Yarn 2` project that will be adjusted.
+2. If `package.json` isn't found in a current directory then a fresh `Yarn 2` project will be installed.
 
 ## VSCode
 

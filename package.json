@@ -1,6 +1,6 @@
 {
   "name": "@efrem/initjs",
-  "version": "1.1.0",
+  "version": "2.0.1-beta.5",
   "main": "dist/index.js",
   "repository": "https://github.com/MrEfrem/initjs.git",
   "author": "MrEfrem <mr.efrem@gmail.com>",
@@ -10,15 +10,15 @@
     "outdated": "yarn upgrade-interactive",
     "build": "babel src -d dist",
     "lint": "eslint src/**/*.js",
-    "prepublish": "yarn lint && yarn tsc"
+    "prepublish": "yarn lint && yarn tsc && rm -rf files/cache && mkdir files/cache && cp yarn.lock files/cache && cp -R .yarn/cache files/cache/yarn && mv files/cache/yarn/.gitignore files/cache/yarn/gitignore"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
     "@babel/register": "^7.9.0",
-    "@types/node": "^13.11.1",
-    "@yarnpkg/pnpify": "^2.0.0-rc.20",
+    "@types/node": "^13.13.0",
+    "@yarnpkg/pnpify": "^2.0.0-rc.21",
     "babel-eslint": "^10.1.0",
     "core-js": "^3.6.5",
     "eslint": "^6.8.0",

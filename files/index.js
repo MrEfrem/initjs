@@ -1,2 +1,2 @@
-#!/usr/bin/env node
-console.log(`It's the skeleton`);
+import packageJson from '../package.json';
+console.log(`This is the JS skeleton "${packageJson.name}"`);

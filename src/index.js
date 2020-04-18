@@ -1,6 +1,7 @@
-#!/usr/bin/env node
 import fs from 'fs';
 import { execSync } from 'child_process';
+import path from 'path';
+import sourcePackageJSON from '../package.json';
 
 /** @type {Array<string>} */
 const basisDependencies = [];
@@ -75,11 +76,11 @@ if (process.argv.length === 3 || !existsPackageJSON) {
   try {
     yarnConf = fs.readFileSync('.yarnrc.yml').toString();
   } catch (err) {
-    console.error(`.yarnrc.yml isn't found in current directory`, err);
+    console.error(`.yarnrc.yml isn't found in the current directory`, err);
     process.exit(1);
   }
   try {
-    fs.writeFileSync('.yarnrc.yml', `${yarnConf}enableGlobalCache: true\n`);
+    fs.writeFileSync('.yarnrc.yml', `${yarnConf}enableGlobalCache: false\n`);
   } catch (err) {
     console.error(`Error write to .yarnrc.yml`, err);
     process.exit(1);
@@ -95,73 +96,127 @@ if (process.argv.length === 3 || !existsPackageJSON) {
 }
 
 /** @type {{ [x: string]: any }} */
-let packageJSON;
+let targetPackageJSON;
 try {
-  packageJSON = JSON.parse(fs.readFileSync('package.json').toString());
+  targetPackageJSON = JSON.parse(fs.readFileSync('package.json').toString());
 } catch (err) {
-  console.error(`package.json isn't found in current directory`, err);
+  console.error(`package.json isn't found in the current directory`, err);
   process.exit(1);
 }
 
 if (newProject) {
-  packageJSON.scripts = {
+  // Fill package.json
+  targetPackageJSON.scripts = {
     start: 'node -r @babel/register src/index.js',
     outdated: 'yarn upgrade-interactive',
     build: 'babel src -d dist',
+    exec: 'node dist/index.js',
   };
-  packageJSON.main = 'dist/index.js';
+  if ('devDependencies' in sourcePackageJSON) {
+    targetPackageJSON.devDependencies = sourcePackageJSON['devDependencies'];
+  }
+  if ('dependencies' in sourcePackageJSON) {
+    targetPackageJSON.dependencies = sourcePackageJSON['dependencies'];
+  }
+  targetPackageJSON.main = 'dist/index.js';
   try {
-    fs.writeFileSync('package.json', JSON.stringify(packageJSON));
+    fs.writeFileSync('package.json', JSON.stringify(targetPackageJSON));
   } catch (err) {
     console.error(`Error write to package.json`, err);
     process.exit(1);
   }
-}
 
-// Install packages
-/** @type {Array<string>} */
-let requiredDependencies = [];
-if (packageJSON.dependencies) {
-  const { dependencies } = packageJSON;
-  basisDependencies.forEach((dependency) => {
-    if (!dependencies[dependency]) {
-      requiredDependencies.push(dependency);
-    }
-  });
-} else {
-  requiredDependencies = basisDependencies;
-}
-if (requiredDependencies.length) {
-  const addDependencies = requiredDependencies.join(' ');
+  // Copy Yarn files/cache files to .yarn/cache
+  const sourceDir = `${__dirname}/../files/cache/yarn`;
+  const targetDir = '.yarn/cache';
   try {
-    execSync(`yarn add ${addDependencies}`);
-    console.log(`Added dependencies: ${addDependencies}`);
+    fs.mkdirSync(targetDir);
+    console.log(`Created directory: ${targetDir}`);
   } catch (err) {
-    console.error(`Error add dependencies: ${addDependencies}`, err);
+    console.error(`Error create directory: ${targetDir}`, err);
+  }
+  const cacheFiles = fs.readdirSync(sourceDir);
+  for (let filename of cacheFiles) {
+    let targetFilename = filename;
+    if (targetFilename === 'gitignore') {
+      targetFilename = `.${targetFilename}`;
+    }
+    try {
+      fs.copyFileSync(
+        path.join(sourceDir, filename),
+        path.join(targetDir, targetFilename)
+      );
+    } catch (err) {
+      console.error(`Error copy a Yarn cache file: ${filename}`, err);
+    }
+  }
+  console.log('Copied Yarn cache files');
+
+  // Copy yarn.lock
+  try {
+    fs.copyFileSync(
+      path.resolve(`${__dirname}/../files/cache/yarn.lock`),
+      'yarn.lock'
+    );
+    console.log('Copied yarn.lock file');
+  } catch (err) {
+    console.error('Error copy yarn.lock file', err);
+  }
+
+  // Install other packages
+  try {
+    execSync(`yarn`);
+    console.log(`Other packages installed`);
+  } catch (err) {
+    console.error('Error install other packages', err);
     process.exit(1);
   }
-}
-
-/** @type {Array<string>} */
-let requiredDevDependencies = [];
-if (packageJSON.devDependencies) {
-  const { devDependencies } = packageJSON;
-  basisDevDependencies.forEach((devDependency) => {
-    if (!devDependencies[devDependency]) {
-      requiredDevDependencies.push(devDependency);
-    }
-  });
 } else {
-  requiredDevDependencies = basisDevDependencies;
-}
-if (requiredDevDependencies.length) {
-  const addDevDependencies = requiredDevDependencies.join(' ');
-  try {
-    execSync(`yarn add ${addDevDependencies} -D`);
-    console.log(`Added devDependencies: ${addDevDependencies}`);
-  } catch (err) {
-    console.error(`Error add devDependencies: ${addDevDependencies}`, err);
-    process.exit(1);
+  // Install packages
+  /** @type {Array<string>} */
+  let requiredDependencies = [];
+  if (targetPackageJSON.dependencies) {
+    const { dependencies } = targetPackageJSON;
+    basisDependencies.forEach((dependency) => {
+      if (!dependencies[dependency]) {
+        requiredDependencies.push(dependency);
+      }
+    });
+  } else {
+    requiredDependencies = basisDependencies;
+  }
+  if (requiredDependencies.length) {
+    const addDependencies = requiredDependencies.join(' ');
+    try {
+      execSync(`yarn add ${addDependencies}`);
+      console.log(`Added dependencies: ${addDependencies}`);
+    } catch (err) {
+      console.error(`Error add dependencies: ${addDependencies}`, err);
+      process.exit(1);
+    }
+  }
+
+  /** @type {Array<string>} */
+  let requiredDevDependencies = [];
+  if (targetPackageJSON.devDependencies) {
+    const { devDependencies } = targetPackageJSON;
+    basisDevDependencies.forEach((devDependency) => {
+      if (!devDependencies[devDependency]) {
+        requiredDevDependencies.push(devDependency);
+      }
+    });
+  } else {
+    requiredDevDependencies = basisDevDependencies;
+  }
+  if (requiredDevDependencies.length) {
+    const addDevDependencies = requiredDevDependencies.join(' ');
+    try {
+      execSync(`yarn add ${addDevDependencies} -D`);
+      console.log(`Added devDependencies: ${addDevDependencies}`);
+    } catch (err) {
+      console.error(`Error add devDependencies: ${addDevDependencies}`, err);
+      process.exit(1);
+    }
   }
 }
 
@@ -182,9 +237,9 @@ for (let filename of basisPackagesConfigFiles) {
         sourceFilename = sourceFilename.slice(1);
       }
       fs.copyFileSync(`${__dirname}/../files/${sourceFilename}`, filename);
-      console.log(`Copied config file: ${filename}`);
+      console.log(`Copied a config file: ${filename}`);
     } catch (err) {
-      console.error(`Error copy config file : ${filename}`, err);
+      console.error(`Error copy a config file : ${filename}`, err);
       process.exit(1);
     }
   }
@@ -210,7 +265,6 @@ if (newProject) {
   }
   try {
     fs.copyFileSync(`${__dirname}/../files/index.js`, 'src/index.js');
-    fs.chmodSync('src/index.js', 0o765);
     console.log(`Copied JS file: src/index.js`);
   } catch (err) {
     console.error(`Error copy JS file src/index.js`, err);

@@ -18,6 +18,9 @@ node_modules/
 build/output
 dist
 
+# yarn 2 cache files
+files/cache
+
 # debug
 npm-debug.log
 yarn-error.log
@@ -26,6 +29,8 @@ yarn-error.log
 .yarn/unplugged
 # This is the Yarn build state; it's local to each clone
 .yarn/build-state.yml
+# This is the Yarn install state cache, it can be rebuilt anytime
+.yarn/install-state.gz
 
 ######################
 # OS generated files #
