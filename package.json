@@ -1,6 +1,6 @@
 {
   "name": "@efrem/initjs",
-  "version": "2.0.1-beta.5",
+  "version": "2.0.1-beta.6",
   "main": "dist/index.js",
   "repository": "https://github.com/MrEfrem/initjs.git",
   "author": "MrEfrem <mr.efrem@gmail.com>",

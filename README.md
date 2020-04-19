@@ -16,7 +16,7 @@ npx @efrem/initjs [<project name>]
 
 `<project name>` is optional. If it isn't set then:
 
-1. If a current directory contains existing project (contains `package.json`) then it should be `Yarn 2` project that will be adjusted.
+1. If a current directory contains existing Yarn project (contains `package.json` and `yarn.lock`) then it will be adjusted (NPM projects aren't supported).
 2. If `package.json` isn't found in a current directory then a fresh `Yarn 2` project will be installed.
 
 ## VSCode

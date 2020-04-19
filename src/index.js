@@ -171,6 +171,31 @@ if (newProject) {
     console.error('Error install other packages', err);
     process.exit(1);
   }
+
+  // Install Editor SDKs
+  try {
+    execSync(`yarn pnpify --sdk`);
+    console.log(`Editor SDKs installed`);
+  } catch (err) {
+    console.error('Error install Editor SDKs', err);
+    process.exit(1);
+  }
+
+  // Create src directory and copy index.js
+  try {
+    fs.mkdirSync('src');
+    console.log('Created directory: src');
+  } catch (err) {
+    console.error(`Error create directory "src"`, err);
+    process.exit(1);
+  }
+  try {
+    fs.copyFileSync(`${__dirname}/../files/index.js`, 'src/index.js');
+    console.log(`Copied JS file: src/index.js`);
+  } catch (err) {
+    console.error(`Error copy JS file src/index.js`, err);
+    process.exit(1);
+  }
 } else {
   // Install packages
   /** @type {Array<string>} */
@@ -242,32 +267,5 @@ for (let filename of basisPackagesConfigFiles) {
       console.error(`Error copy a config file : ${filename}`, err);
       process.exit(1);
     }
-  }
-}
-
-// install Editor SDKs
-try {
-  execSync(`yarn pnpify --sdk`);
-  console.log(`Editor SDKs installed`);
-} catch (err) {
-  console.error('Error install Editor SDKs', err);
-  process.exit(1);
-}
-
-if (newProject) {
-  // Copy index.js only for a new project
-  try {
-    fs.mkdirSync('src');
-    console.log('Created directory: src');
-  } catch (err) {
-    console.error(`Error create directory "src"`, err);
-    process.exit(1);
-  }
-  try {
-    fs.copyFileSync(`${__dirname}/../files/index.js`, 'src/index.js');
-    console.log(`Copied JS file: src/index.js`);
-  } catch (err) {
-    console.error(`Error copy JS file src/index.js`, err);
-    process.exit(1);
   }
 }
