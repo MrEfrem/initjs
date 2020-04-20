@@ -149,6 +149,9 @@ if (!(existsPackageJSON && yarnMajorVersion === 2)) {
       '.yarnrc.yml',
       `${yarnConf}enableGlobalCache: ${enableGlobalCache}\n`
     );
+    if (enableGlobalCache) {
+      console.log('Global cache enabled');
+    }
   } catch (err) {
     console.error(`Error writing to .yarnrc.yml`, err);
     process.exit(1);
