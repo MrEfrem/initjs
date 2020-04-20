@@ -1,6 +1,6 @@
 {
   "name": "@efrem/initjs",
-  "version": "2.0.1",
+  "version": "3.0.0-beta.2",
   "main": "dist/index.js",
   "repository": "https://github.com/MrEfrem/initjs.git",
   "author": "MrEfrem <mr.efrem@gmail.com>",
@@ -17,7 +17,7 @@
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
     "@babel/register": "^7.9.0",
-    "@types/node": "^13.13.0",
+    "@types/node": "^13.13.1",
     "@yarnpkg/pnpify": "^2.0.0-rc.21",
     "babel-eslint": "^10.1.0",
     "core-js": "^3.6.5",

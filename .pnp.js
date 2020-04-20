@@ -47,7 +47,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ],
       [
         "@types/node",
-        "npm:13.13.0"
+        "npm:13.13.1"
       ],
       [
         "@yarnpkg/pnpify",
@@ -93,7 +93,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/core", "npm:7.9.0"],
             ["@babel/preset-env", "virtual:c297c2a07db5b6ba633009827425bb4d08be838492ab2afde86c533187c0c49d364271cacf4573b1a32a1a10212a9c95af48fc22af9d443778854d0498e1312d#npm:7.9.5"],
             ["@babel/register", "virtual:c297c2a07db5b6ba633009827425bb4d08be838492ab2afde86c533187c0c49d364271cacf4573b1a32a1a10212a9c95af48fc22af9d443778854d0498e1312d#npm:7.9.0"],
-            ["@types/node", "npm:13.13.0"],
+            ["@types/node", "npm:13.13.1"],
             ["@yarnpkg/pnpify", "virtual:c297c2a07db5b6ba633009827425bb4d08be838492ab2afde86c533187c0c49d364271cacf4573b1a32a1a10212a9c95af48fc22af9d443778854d0498e1312d#npm:2.0.0-rc.21"],
             ["babel-eslint", "virtual:c297c2a07db5b6ba633009827425bb4d08be838492ab2afde86c533187c0c49d364271cacf4573b1a32a1a10212a9c95af48fc22af9d443778854d0498e1312d#npm:10.1.0"],
             ["core-js", "npm:3.6.5"],
@@ -1360,7 +1360,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/core", "npm:7.9.0"],
             ["@babel/preset-env", "virtual:c297c2a07db5b6ba633009827425bb4d08be838492ab2afde86c533187c0c49d364271cacf4573b1a32a1a10212a9c95af48fc22af9d443778854d0498e1312d#npm:7.9.5"],
             ["@babel/register", "virtual:c297c2a07db5b6ba633009827425bb4d08be838492ab2afde86c533187c0c49d364271cacf4573b1a32a1a10212a9c95af48fc22af9d443778854d0498e1312d#npm:7.9.0"],
-            ["@types/node", "npm:13.13.0"],
+            ["@types/node", "npm:13.13.1"],
             ["@yarnpkg/pnpify", "virtual:c297c2a07db5b6ba633009827425bb4d08be838492ab2afde86c533187c0c49d364271cacf4573b1a32a1a10212a9c95af48fc22af9d443778854d0498e1312d#npm:2.0.0-rc.21"],
             ["babel-eslint", "virtual:c297c2a07db5b6ba633009827425bb4d08be838492ab2afde86c533187c0c49d364271cacf4573b1a32a1a10212a9c95af48fc22af9d443778854d0498e1312d#npm:10.1.0"],
             ["core-js", "npm:3.6.5"],
@@ -1508,6 +1508,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-node-npm-13.13.0-247c77d018-2.zip/node_modules/@types/node/",
           "packageDependencies": [
             ["@types/node", "npm:13.13.0"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:13.13.1", {
+          "packageLocation": "./.yarn/cache/@types-node-npm-13.13.1-cdc718b495-2.zip/node_modules/@types/node/",
+          "packageDependencies": [
+            ["@types/node", "npm:13.13.1"]
           ],
           "linkType": "HARD",
         }]

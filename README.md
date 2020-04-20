@@ -16,10 +16,15 @@ npx @efrem/initjs [<project name>] [--enable-global-cache]
 
 - `<project name>` is optional. If it isn't set then:
 
-  1. If a current directory contains existing Yarn project (contains `package.json` and `yarn.lock`) then it will be adjusted (NPM projects aren't supported).
+  1. If a current directory contains existing Yarn project (contains `package.json` and `yarn.lock`; NPM projects aren't supported) then:
+
+     - If a project is `Yarn 1` then it will be upgraded to `Yarn 2`.
+
+     - If a project already is `Yarn 2` then it will be adjusted.
+
   2. If `package.json` isn't found in a current directory then a new `Yarn 2` project will be created.
 
-- `--enable-global-cache` is optional and will act only in a new `Yarn 2` project.
+- `--enable-global-cache` is optional and will act only in a new `Yarn 2` project. I.e. existing `Yarn 2` project won't be fixed.
 
 ## VSCode
 

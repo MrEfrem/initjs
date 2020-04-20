@@ -1067,7 +1067,7 @@ __metadata:
     "@babel/core": ^7.9.0
     "@babel/preset-env": ^7.9.5
     "@babel/register": ^7.9.0
-    "@types/node": ^13.13.0
+    "@types/node": ^13.13.1
     "@yarnpkg/pnpify": ^2.0.0-rc.21
     babel-eslint: ^10.1.0
     core-js: ^3.6.5
@@ -1191,10 +1191,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^13.13.0, @types/node@npm:^13.7.0":
+"@types/node@npm:*, @types/node@npm:^13.7.0":
   version: 13.13.0
   resolution: "@types/node@npm:13.13.0"
   checksum: 2/30bc5a1ade71f18de9a4324b273d140a131310e92245a449b39c3aaa1271ca03d6a59b79cb12154bbedd8960f99d184e0d757e53fe704d6d1736d9567696468e
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^13.13.1":
+  version: 13.13.1
+  resolution: "@types/node@npm:13.13.1"
+  checksum: 2/f0afea7a32a6a69463a4af16a8f821773987411d1158de2c6ef9b0a70d6724bb199328788086d9727295b2a94272ee9711162cd0e5c61960da71b04ca008d4ab
   languageName: node
   linkType: hard
 
