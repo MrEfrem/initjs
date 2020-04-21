@@ -5,3 +5,4 @@ node_modules/*
 build/output/*
 dist/*
 .pnp.js
+files/cache/*

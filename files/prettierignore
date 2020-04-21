@@ -5,3 +5,4 @@ dist
 build/output
 node_modules
 .pnp.js
+*.patch

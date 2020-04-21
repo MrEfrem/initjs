@@ -5,7 +5,7 @@ import path from 'path';
 import sourcePackageJSON from '../package.json';
 
 /** @type {Array<string>} */
-const basisDependencies = [];
+const basisDependencies = ['core-js'];
 const basisDevDependencies = [
   'babel-eslint',
   'eslint',
@@ -17,32 +17,39 @@ const basisDevDependencies = [
   '@babel/register',
   '@types/node',
   '@yarnpkg/pnpify',
-  'core-js',
 ];
 
 const basisPackagesConfigFiles = [
   '.babelrc',
   '.editorconfig',
   '.eslintignore',
+  '.eslintrc',
+  '.gitattributes',
   '.gitignore',
   '.prettierrc',
   '.prettierignore',
   'tsconfig.json',
-  '.eslintrc',
   'README.md',
 ];
 
 const ARG_ENABLE_GLOBAL_CACHE = '--enable-global-cache';
+const ARG_OVERWRITE_CONFIG_FILES = '--overwrite-config-files';
 
 const cliArgs = process.argv.slice(2);
 let projectDir = null;
 let enableGlobalCache = false;
+let overwriteConfigFiles = false;
 for (let arg of cliArgs) {
   if (arg.slice(0, 2) === '--' || arg[0] === '-') {
-    if (arg === ARG_ENABLE_GLOBAL_CACHE) {
-      enableGlobalCache = true;
-    } else {
-      throw new Error(`Unknown argument ${arg}`);
+    switch (arg) {
+      case ARG_ENABLE_GLOBAL_CACHE:
+        enableGlobalCache = true;
+        break;
+      case ARG_OVERWRITE_CONFIG_FILES:
+        overwriteConfigFiles = true;
+        break;
+      default:
+        throw new Error(`Unknown argument ${arg}`);
     }
   } else {
     if (arg.length) {
@@ -95,6 +102,12 @@ if (enableGlobalCache && existsPackageJSON && yarnMajorVersion === 2) {
   );
 }
 
+if (overwriteConfigFiles && projectDir) {
+  throw new Error(
+    `The command-line argument ${ARG_OVERWRITE_CONFIG_FILES} can be used only with an existing project`
+  );
+}
+
 if (projectDir) {
   try {
     fs.mkdirSync(projectDir);
@@ -139,7 +152,7 @@ if (yarnMajorVersion === 1 && yarnMinorVersion >= 22) {
 if (!(existsPackageJSON && yarnMajorVersion === 2)) {
   let yarnConf;
   try {
-    yarnConf = fs.readFileSync('.yarnrc.yml').toString();
+    yarnConf = fs.readFileSync('.yarnrc.yml', { flag: 'a+' }).toString();
   } catch (err) {
     console.error(`.yarnrc.yml isn't found in the current directory`, err);
     process.exit(1);
@@ -289,9 +302,26 @@ if (newProject) {
 }
 
 if (!(newProject && !enableGlobalCache)) {
+  let actualBasisDependencies = [];
+  let actualBasisDevDependencies = [];
+  for (let basisDependency of basisDependencies) {
+    if (targetPackageJSON.devDependencies?.[basisDependency]) {
+      actualBasisDevDependencies.push(basisDependency);
+    } else {
+      actualBasisDependencies.push(basisDependency);
+    }
+  }
+  for (let basisDevDependency of basisDevDependencies) {
+    if (targetPackageJSON.dependencies?.[basisDevDependency]) {
+      actualBasisDependencies.push(basisDevDependency);
+    } else {
+      actualBasisDevDependencies.push(basisDevDependency);
+    }
+  }
+
   // Install packages
-  if (basisDependencies.length) {
-    const addDependencies = basisDependencies.join(' ');
+  if (actualBasisDependencies.length) {
+    const addDependencies = actualBasisDependencies.join(' ');
     try {
       execSync(`yarn add ${addDependencies}`);
       console.log(`Added dependencies: ${addDependencies}`);
@@ -301,8 +331,8 @@ if (!(newProject && !enableGlobalCache)) {
     }
   }
 
-  if (basisDevDependencies.length) {
-    const addDevDependencies = basisDevDependencies.join(' ');
+  if (actualBasisDevDependencies.length) {
+    const addDevDependencies = actualBasisDevDependencies.join(' ');
     try {
       execSync(`yarn add ${addDevDependencies} -D`);
       console.log(`Added devDependencies: ${addDevDependencies}`);
@@ -313,15 +343,19 @@ if (!(newProject && !enableGlobalCache)) {
   }
 }
 
-// Copy packages config files
-const files = fs.readdirSync('.');
+// Copy dependensies config files
 /** @type {Array<string>} */
 const foundConfigFiles = [];
-files.forEach((filename) => {
-  if (basisPackagesConfigFiles.includes(filename)) {
-    foundConfigFiles.push(filename);
-  }
-});
+if (overwriteConfigFiles) {
+  foundConfigFiles.push('README.md');
+} else {
+  const files = fs.readdirSync('.');
+  files.forEach((filename) => {
+    if (basisPackagesConfigFiles.includes(filename)) {
+      foundConfigFiles.push(filename);
+    }
+  });
+}
 for (let filename of basisPackagesConfigFiles) {
   if (!foundConfigFiles.includes(filename)) {
     try {

@@ -1067,13 +1067,14 @@ __metadata:
     "@babel/core": ^7.9.0
     "@babel/preset-env": ^7.9.5
     "@babel/register": ^7.9.0
+    "@types/core-js": 2.5.3
     "@types/node": ^13.13.1
     "@yarnpkg/pnpify": ^2.0.0-rc.21
     babel-eslint: ^10.1.0
     core-js: ^3.6.5
     eslint: ^6.8.0
     husky: ^4.2.5
-    prettier: ^2.0.4
+    prettier: ^2.0.5
     pretty-quick: ^2.0.1
     typescript: ^3.8.3
   bin:
@@ -1140,6 +1141,13 @@ __metadata:
   version: 1.1.1
   resolution: "@types/color-name@npm:1.1.1"
   checksum: 2/8311db94a9c4ecd247763b81e783ee49d87678b4ce6a7ee502e2bd5cea242b7357804a04855db009f713174bc654cc0c01c7303d40d757e5d710f5ac0368500f
+  languageName: node
+  linkType: hard
+
+"@types/core-js@npm:2.5.3":
+  version: 2.5.3
+  resolution: "@types/core-js@npm:2.5.3"
+  checksum: 2/a6e54149dcfc7fb1c748ebdada16916c2ec488eeb37a6f539aa909d262cadf0492544f5016f0342cd9f5e2bf62de6c3877db3f679d6467c3a0fc3259c0459faa
   languageName: node
   linkType: hard
 
@@ -4515,12 +4523,12 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"prettier@npm:^2.0.4":
-  version: 2.0.4
-  resolution: "prettier@npm:2.0.4"
+"prettier@npm:^2.0.5":
+  version: 2.0.5
+  resolution: "prettier@npm:2.0.5"
   bin:
     prettier: bin-prettier.js
-  checksum: 2/a43343ac00250ce239439a723e5b0860a46e4703542b925c962d8c3dfceab1f69a326ba4c8de2f24ad39c4daef07831439b0b237cda9c63e4981164075e7dc5a
+  checksum: 2/d249d89361870a29b20e8b268cb09e908490b8c9e21f70393d12a213701f29ba7e95b7f9ce0ad63929c16ce475176742481911737ae3da4a498873e4a3b90990
   languageName: node
   linkType: hard
 

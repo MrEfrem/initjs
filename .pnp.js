@@ -46,6 +46,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "virtual:c297c2a07db5b6ba633009827425bb4d08be838492ab2afde86c533187c0c49d364271cacf4573b1a32a1a10212a9c95af48fc22af9d443778854d0498e1312d#npm:7.9.0"
       ],
       [
+        "@types/core-js",
+        "npm:2.5.3"
+      ],
+      [
         "@types/node",
         "npm:13.13.1"
       ],
@@ -71,7 +75,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ],
       [
         "prettier",
-        "npm:2.0.4"
+        "npm:2.0.5"
       ],
       [
         "pretty-quick",
@@ -93,13 +97,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/core", "npm:7.9.0"],
             ["@babel/preset-env", "virtual:c297c2a07db5b6ba633009827425bb4d08be838492ab2afde86c533187c0c49d364271cacf4573b1a32a1a10212a9c95af48fc22af9d443778854d0498e1312d#npm:7.9.5"],
             ["@babel/register", "virtual:c297c2a07db5b6ba633009827425bb4d08be838492ab2afde86c533187c0c49d364271cacf4573b1a32a1a10212a9c95af48fc22af9d443778854d0498e1312d#npm:7.9.0"],
+            ["@types/core-js", "npm:2.5.3"],
             ["@types/node", "npm:13.13.1"],
             ["@yarnpkg/pnpify", "virtual:c297c2a07db5b6ba633009827425bb4d08be838492ab2afde86c533187c0c49d364271cacf4573b1a32a1a10212a9c95af48fc22af9d443778854d0498e1312d#npm:2.0.0-rc.21"],
             ["babel-eslint", "virtual:c297c2a07db5b6ba633009827425bb4d08be838492ab2afde86c533187c0c49d364271cacf4573b1a32a1a10212a9c95af48fc22af9d443778854d0498e1312d#npm:10.1.0"],
             ["core-js", "npm:3.6.5"],
             ["eslint", "npm:6.8.0"],
             ["husky", "npm:4.2.5"],
-            ["prettier", "npm:2.0.4"],
+            ["prettier", "npm:2.0.5"],
             ["pretty-quick", "virtual:c297c2a07db5b6ba633009827425bb4d08be838492ab2afde86c533187c0c49d364271cacf4573b1a32a1a10212a9c95af48fc22af9d443778854d0498e1312d#npm:2.0.1"],
             ["typescript", "patch:typescript@npm%3A3.8.3#builtin<compat/typescript>::version=3.8.3&hash=c79188"]
           ],
@@ -1360,13 +1365,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/core", "npm:7.9.0"],
             ["@babel/preset-env", "virtual:c297c2a07db5b6ba633009827425bb4d08be838492ab2afde86c533187c0c49d364271cacf4573b1a32a1a10212a9c95af48fc22af9d443778854d0498e1312d#npm:7.9.5"],
             ["@babel/register", "virtual:c297c2a07db5b6ba633009827425bb4d08be838492ab2afde86c533187c0c49d364271cacf4573b1a32a1a10212a9c95af48fc22af9d443778854d0498e1312d#npm:7.9.0"],
+            ["@types/core-js", "npm:2.5.3"],
             ["@types/node", "npm:13.13.1"],
             ["@yarnpkg/pnpify", "virtual:c297c2a07db5b6ba633009827425bb4d08be838492ab2afde86c533187c0c49d364271cacf4573b1a32a1a10212a9c95af48fc22af9d443778854d0498e1312d#npm:2.0.0-rc.21"],
             ["babel-eslint", "virtual:c297c2a07db5b6ba633009827425bb4d08be838492ab2afde86c533187c0c49d364271cacf4573b1a32a1a10212a9c95af48fc22af9d443778854d0498e1312d#npm:10.1.0"],
             ["core-js", "npm:3.6.5"],
             ["eslint", "npm:6.8.0"],
             ["husky", "npm:4.2.5"],
-            ["prettier", "npm:2.0.4"],
+            ["prettier", "npm:2.0.5"],
             ["pretty-quick", "virtual:c297c2a07db5b6ba633009827425bb4d08be838492ab2afde86c533187c0c49d364271cacf4573b1a32a1a10212a9c95af48fc22af9d443778854d0498e1312d#npm:2.0.1"],
             ["typescript", "patch:typescript@npm%3A3.8.3#builtin<compat/typescript>::version=3.8.3&hash=c79188"]
           ],
@@ -1441,6 +1447,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-color-name-npm-1.1.1-00b0925070-2.zip/node_modules/@types/color-name/",
           "packageDependencies": [
             ["@types/color-name", "npm:1.1.1"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@types/core-js", [
+        ["npm:2.5.3", {
+          "packageLocation": "./.yarn/cache/@types-core-js-npm-2.5.3-c1306da62f-2.zip/node_modules/@types/core-js/",
+          "packageDependencies": [
+            ["@types/core-js", "npm:2.5.3"]
           ],
           "linkType": "HARD",
         }]
@@ -5218,10 +5233,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["prettier", [
-        ["npm:2.0.4", {
-          "packageLocation": "./.yarn/cache/prettier-npm-2.0.4-8d1f5f638d-2.zip/node_modules/prettier/",
+        ["npm:2.0.5", {
+          "packageLocation": "./.yarn/cache/prettier-npm-2.0.5-f0ee4e15ce-2.zip/node_modules/prettier/",
           "packageDependencies": [
-            ["prettier", "npm:2.0.4"]
+            ["prettier", "npm:2.0.5"]
           ],
           "linkType": "HARD",
         }]
@@ -5246,7 +5261,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["ignore", "npm:5.1.4"],
             ["mri", "npm:1.1.5"],
             ["multimatch", "npm:4.0.0"],
-            ["prettier", "npm:2.0.4"]
+            ["prettier", "npm:2.0.5"]
           ],
           "packagePeers": [
             "prettier"

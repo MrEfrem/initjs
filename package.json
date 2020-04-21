@@ -1,6 +1,6 @@
 {
   "name": "@efrem/initjs",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "main": "dist/index.js",
   "repository": "https://github.com/MrEfrem/initjs.git",
   "author": "MrEfrem <mr.efrem@gmail.com>",
@@ -10,20 +10,20 @@
     "outdated": "yarn upgrade-interactive",
     "build": "babel src -d dist",
     "lint": "eslint src/**/*.js",
-    "prepublish": "yarn lint && yarn tsc && rm -rf files/cache && mkdir files/cache && cp yarn.lock files/cache && cp -R .yarn/cache files/cache/yarn && mv files/cache/yarn/.gitignore files/cache/yarn/gitignore"
+    "_prepublish": "yarn lint && yarn tsc && rm -rf files/cache && mkdir files/cache && cp yarn.lock files/cache && cp -R .yarn/cache files/cache/yarn && mv files/cache/yarn/.gitignore files/cache/yarn/gitignore && yarn build"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
     "@babel/register": "^7.9.0",
+    "@types/core-js": "2.5.3",
     "@types/node": "^13.13.1",
     "@yarnpkg/pnpify": "^2.0.0-rc.21",
     "babel-eslint": "^10.1.0",
-    "core-js": "^3.6.5",
     "eslint": "^6.8.0",
     "husky": "^4.2.5",
-    "prettier": "^2.0.4",
+    "prettier": "^2.0.5",
     "pretty-quick": "^2.0.1",
     "typescript": "^3.8.3"
   },
@@ -43,5 +43,8 @@
       "pre-commit": "pretty-quick --staged && yarn lint && yarn tsc",
       "pre-push": "yarn lint && yarn tsc"
     }
+  },
+  "dependencies": {
+    "core-js": "^3.6.5"
   }
 }
