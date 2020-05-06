@@ -19,6 +19,7 @@
     ".idea",
     ".vscode",
     ".yarn",
-    ".pnp.js"
+    ".pnp.js",
+    "files/cache"
   ]
 }
