@@ -95,7 +95,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ],
       [
         "typescript",
-        "patch:typescript@npm%3A3.8.3#builtin<compat/typescript>::version=3.8.3&hash=8cac75"
+        "patch:typescript@npm%3A3.9.2#builtin<compat/typescript>::version=3.9.2&hash=8cac75"
       ]
     ],
     "locationBlacklistData": [
@@ -121,7 +121,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["pretty-quick", "virtual:c297c2a07db5b6ba633009827425bb4d08be838492ab2afde86c533187c0c49d364271cacf4573b1a32a1a10212a9c95af48fc22af9d443778854d0498e1312d#npm:2.0.1"],
             ["shelljs", "npm:0.8.4"],
             ["shx", "npm:0.3.2"],
-            ["typescript", "patch:typescript@npm%3A3.8.3#builtin<compat/typescript>::version=3.8.3&hash=8cac75"]
+            ["typescript", "patch:typescript@npm%3A3.9.2#builtin<compat/typescript>::version=3.9.2&hash=8cac75"]
           ],
           "linkType": "SOFT",
         }]
@@ -1436,7 +1436,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["pretty-quick", "virtual:c297c2a07db5b6ba633009827425bb4d08be838492ab2afde86c533187c0c49d364271cacf4573b1a32a1a10212a9c95af48fc22af9d443778854d0498e1312d#npm:2.0.1"],
             ["shelljs", "npm:0.8.4"],
             ["shx", "npm:0.3.2"],
-            ["typescript", "patch:typescript@npm%3A3.8.3#builtin<compat/typescript>::version=3.8.3&hash=8cac75"]
+            ["typescript", "patch:typescript@npm%3A3.9.2#builtin<compat/typescript>::version=3.9.2&hash=8cac75"]
           ],
           "linkType": "SOFT",
         }]
@@ -1730,7 +1730,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["comment-json", "npm:2.4.2"],
             ["cross-spawn", "npm:6.0.5"],
             ["eslint", "npm:7.0.0"],
-            ["typescript", "patch:typescript@npm%3A3.8.3#builtin<compat/typescript>::version=3.8.3&hash=8cac75"]
+            ["typescript", "patch:typescript@npm%3A3.9.2#builtin<compat/typescript>::version=3.9.2&hash=8cac75"]
           ],
           "packagePeers": [
             "eslint",
@@ -6501,10 +6501,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["typescript", [
-        ["patch:typescript@npm%3A3.8.3#builtin<compat/typescript>::version=3.8.3&hash=8cac75", {
-          "packageLocation": "./.yarn/cache/typescript-patch-5debafd482-3.zip/node_modules/typescript/",
+        ["patch:typescript@npm%3A3.9.2#builtin<compat/typescript>::version=3.9.2&hash=8cac75", {
+          "packageLocation": "./.yarn/cache/typescript-patch-5291749965-3.zip/node_modules/typescript/",
           "packageDependencies": [
-            ["typescript", "patch:typescript@npm%3A3.8.3#builtin<compat/typescript>::version=3.8.3&hash=8cac75"]
+            ["typescript", "patch:typescript@npm%3A3.9.2#builtin<compat/typescript>::version=3.9.2&hash=8cac75"]
           ],
           "linkType": "HARD",
         }]

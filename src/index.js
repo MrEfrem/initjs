@@ -181,7 +181,12 @@ if (!(existsPackageJSON && yarnMajorVersion === 2)) {
   try {
     fs.writeFileSync(
       '.yarnrc.yml',
-      `${yarnConf}enableGlobalCache: ${enableGlobalCache}\n`
+      `${yarnConf}enableGlobalCache: ${enableGlobalCache}\n` +
+        'plugins:\n' +
+        '  - path: .yarn/plugins/@yarnpkg/plugin-interactive-tools.js\n' +
+        '    spec: "@yarnpkg/plugin-interactive-tools"\n' +
+        '  - path: .yarn/plugins/@yarnpkg/plugin-typescript.js\n' +
+        '    spec: "@yarnpkg/plugin-typescript"\n'
     );
     if (enableGlobalCache) {
       console.log('Global cache enabled');
