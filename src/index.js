@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import fs from 'fs';
 import { execSync } from 'child_process';
-import path from 'path';
+import shell from 'shelljs';
 import sourcePackageJSON from '../package.json';
 
 /** @type {Array<string>} */
@@ -129,23 +129,44 @@ if (projectDir || !existsPackageJSON) {
   }
 }
 
-if (yarnMajorVersion === 1 && yarnMinorVersion < 22) {
+if (yarnMajorVersion === 1) {
+  // Copy Yarn files/cache/yarn/plugins files to .yarn/plugins
   try {
-    execSync(`yarn policies set-version berry`);
-    console.log(`yarn policies berry is set`);
+    shell.mkdir('-p', '.yarn');
+    shell.cp('-R', `${__dirname}/../files/cache/yarn/plugins`, '.yarn/plugins');
+    console.log('Copied Yarn plugins');
   } catch (err) {
-    console.error(`Error setting yarn policies berry`, err);
-    process.exit(1);
+    console.error('Error copy Yarn plugins', err);
   }
-}
 
-if (yarnMajorVersion === 1 && yarnMinorVersion >= 22) {
+  // Copy Yarn files/cache/yarn/releases files to .yarn/releases
   try {
-    execSync(`yarn set version berry`);
-    console.log(`yarn version berry is set`);
+    shell.cp(
+      '-R',
+      `${__dirname}/../files/cache/yarn/releases`,
+      '.yarn/releases'
+    );
+    console.log('Copied Yarn releases');
   } catch (err) {
-    console.error(`Error setting yarn version berry`, err);
-    process.exit(1);
+    console.error('Error copy Yarn releases', err);
+  }
+
+  if (yarnMinorVersion < 22) {
+    try {
+      execSync(`yarn policies set-version berry`);
+      console.log(`yarn policies berry is set`);
+    } catch (err) {
+      console.error(`Error setting yarn policies berry`, err);
+      process.exit(1);
+    }
+  } else {
+    try {
+      execSync(`yarn set version berry`);
+      console.log(`yarn version berry is set`);
+    } catch (err) {
+      console.error(`Error setting yarn version berry`, err);
+      process.exit(1);
+    }
   }
 }
 
@@ -166,25 +187,36 @@ if (!(existsPackageJSON && yarnMajorVersion === 2)) {
       console.log('Global cache enabled');
     }
   } catch (err) {
-    console.error(`Error writing to .yarnrc.yml`, err);
+    console.error('Error writing to .yarnrc.yml', err);
     process.exit(1);
   }
 }
 
-try {
-  execSync(`yarn plugin import interactive-tools`);
-  console.log(`Added yarn plugin interactive-tools`);
-} catch (err) {
-  console.error(`Error adding yarn plugin interactive-tools`, err);
-  process.exit(1);
-}
+if (yarnMajorVersion === 2) {
+  try {
+    execSync('yarn set version latest');
+    execSync('yarn');
+    console.log('Latest Yarn version installed');
+  } catch (err) {
+    console.error('Error installing latest Yarn version', err);
+    process.exit(1);
+  }
 
-try {
-  execSync(`yarn plugin import typescript`);
-  console.log(`Added yarn plugin typescript`);
-} catch (err) {
-  console.error(`Error adding yarn plugin typescript`, err);
-  process.exit(1);
+  try {
+    execSync('yarn plugin import interactive-tools');
+    console.log('Added yarn plugin interactive-tools');
+  } catch (err) {
+    console.error('Error adding yarn plugin interactive-tools', err);
+    process.exit(1);
+  }
+
+  try {
+    execSync('yarn plugin import typescript');
+    console.log('Added yarn plugin typescript');
+  } catch (err) {
+    console.error('Error adding yarn plugin typescript', err);
+    process.exit(1);
+  }
 }
 
 /** @type {{ [x: string]: any }} */
@@ -237,38 +269,18 @@ try {
 
 if (newProject) {
   if (!enableGlobalCache) {
-    // Copy Yarn files/cache files to .yarn/cache
-    const sourceDir = `${__dirname}/../files/cache/yarn`;
-    const targetDir = '.yarn/cache';
+    // Copy Yarn files/cache/yarn/cache files to .yarn/cache
     try {
-      fs.mkdirSync(targetDir);
-      console.log(`Created directory: ${targetDir}`);
+      shell.cp('-R', `${__dirname}/../files/cache/yarn/cache`, '.yarn/cache');
+      shell.mv('.yarn/cache/gitignore', '.yarn/cache/.gitignore');
+      console.log('Copied Yarn cache files');
     } catch (err) {
-      console.error(`Error creating a directory: ${targetDir}`, err);
+      console.error('Error copy Yarn cache files', err);
     }
-    const cacheFiles = fs.readdirSync(sourceDir);
-    for (let filename of cacheFiles) {
-      let targetFilename = filename;
-      if (targetFilename === 'gitignore') {
-        targetFilename = `.${targetFilename}`;
-      }
-      try {
-        fs.copyFileSync(
-          path.join(sourceDir, filename),
-          path.join(targetDir, targetFilename)
-        );
-      } catch (err) {
-        console.error(`Error copying a Yarn cache file: ${filename}`, err);
-      }
-    }
-    console.log('Copied Yarn cache files');
 
     // Copy yarn.lock
     try {
-      fs.copyFileSync(
-        path.resolve(`${__dirname}/../files/cache/yarn.lock`),
-        'yarn.lock'
-      );
+      fs.copyFileSync(`${__dirname}/../files/cache/yarn.lock`, 'yarn.lock');
       console.log('Copied yarn.lock file');
     } catch (err) {
       console.error('Error copying yarn.lock file', err);
@@ -276,7 +288,7 @@ if (newProject) {
 
     // Install other packages
     try {
-      execSync(`yarn`);
+      execSync('yarn');
       console.log(`Other packages installed`);
     } catch (err) {
       console.error('Error installing other packages', err);
