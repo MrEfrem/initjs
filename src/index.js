@@ -16,7 +16,6 @@ const basisDevDependencies = [
   '@babel/preset-env',
   '@babel/register',
   '@types/node',
-  '@yarnpkg/pnpify',
 ];
 
 const basisPackagesConfigFiles = [
@@ -316,6 +315,14 @@ if (newProject) {
     console.error(`Error copying JS file src/index.js`, err);
     process.exit(1);
   }
+
+  // Copy Yarn files/cache/vscode files to .vscode
+  try {
+    shell.cp('-R', `${__dirname}/../files/cache/vscode`, '.vscode');
+    console.log('Copied VSCode settings');
+  } catch (err) {
+    console.error('Copied VSCode settings', err);
+  }
 }
 
 if (!(newProject && !enableGlobalCache)) {
@@ -389,11 +396,13 @@ for (let filename of basisPackagesConfigFiles) {
   }
 }
 
-// Install Editor SDKs
-try {
-  execSync(`yarn pnpify --sdk`);
-  console.log(`Editor SDKs installed`);
-} catch (err) {
-  console.error('Error installing Editor SDKs', err);
-  process.exit(1);
+if (yarnMajorVersion === 2) {
+  // Install Editor SDKs
+  try {
+    execSync(`yarn dlx @yarnpkg/pnpify --sdk`);
+    console.log(`Editor SDKs installed`);
+  } catch (err) {
+    console.error('Error installing Editor SDKs', err);
+    process.exit(1);
+  }
 }

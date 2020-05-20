@@ -5,7 +5,7 @@
 ### Yarn 2 (berry)
 
 ```bash
-yarn dlx @efrem/initjs [<project name>] [--enable-global-cache]
+yarn dlx @efrem/initjs [<project name>] [--enable-global-cache] [--overwrite-config-files]
 ```
 
 ### Npm
