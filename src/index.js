@@ -290,6 +290,14 @@ if (newProject) {
       console.error('Error copying yarn.lock file', err);
     }
 
+    // Copy .pnp.js
+    try {
+      fs.copyFileSync(`${__dirname}/../files/cache/pnp.js`, '.pnp.js');
+      console.log('Copied .pnp.js file');
+    } catch (err) {
+      console.error('Error copying .pnp.js file', err);
+    }
+
     // Install other packages
     try {
       execSync('yarn');

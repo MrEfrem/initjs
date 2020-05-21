@@ -55,7 +55,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ],
       [
         "@types/shelljs",
-        "npm:0.8.7"
+        "npm:0.8.8"
       ],
       [
         "babel-eslint",
@@ -107,7 +107,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/register", "virtual:c297c2a07db5b6ba633009827425bb4d08be838492ab2afde86c533187c0c49d364271cacf4573b1a32a1a10212a9c95af48fc22af9d443778854d0498e1312d#npm:7.9.0"],
             ["@types/core-js", "npm:2.5.3"],
             ["@types/node", "npm:14.0.4"],
-            ["@types/shelljs", "npm:0.8.7"],
+            ["@types/shelljs", "npm:0.8.8"],
             ["babel-eslint", "virtual:c297c2a07db5b6ba633009827425bb4d08be838492ab2afde86c533187c0c49d364271cacf4573b1a32a1a10212a9c95af48fc22af9d443778854d0498e1312d#npm:10.1.0"],
             ["core-js", "npm:3.6.5"],
             ["eslint", "npm:7.0.0"],
@@ -1421,7 +1421,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/register", "virtual:c297c2a07db5b6ba633009827425bb4d08be838492ab2afde86c533187c0c49d364271cacf4573b1a32a1a10212a9c95af48fc22af9d443778854d0498e1312d#npm:7.9.0"],
             ["@types/core-js", "npm:2.5.3"],
             ["@types/node", "npm:14.0.4"],
-            ["@types/shelljs", "npm:0.8.7"],
+            ["@types/shelljs", "npm:0.8.8"],
             ["babel-eslint", "virtual:c297c2a07db5b6ba633009827425bb4d08be838492ab2afde86c533187c0c49d364271cacf4573b1a32a1a10212a9c95af48fc22af9d443778854d0498e1312d#npm:10.1.0"],
             ["core-js", "npm:3.6.5"],
             ["eslint", "npm:7.0.0"],
@@ -1509,10 +1509,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@types/shelljs", [
-        ["npm:0.8.7", {
-          "packageLocation": "./.yarn/cache/@types-shelljs-npm-0.8.7-91650a59c3-3.zip/node_modules/@types/shelljs/",
+        ["npm:0.8.8", {
+          "packageLocation": "./.yarn/cache/@types-shelljs-npm-0.8.8-848c4354d1-3.zip/node_modules/@types/shelljs/",
           "packageDependencies": [
-            ["@types/shelljs", "npm:0.8.7"],
+            ["@types/shelljs", "npm:0.8.8"],
             ["@types/glob", "npm:7.1.1"],
             ["@types/node", "npm:13.13.0"]
           ],

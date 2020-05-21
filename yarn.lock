@@ -1118,7 +1118,7 @@ __metadata:
     "@babel/register": ^7.9.0
     "@types/core-js": 2.5.3
     "@types/node": ^14.0.4
-    "@types/shelljs": 0.8.7
+    "@types/shelljs": 0.8.8
     babel-eslint: ^10.1.0
     core-js: ^3.6.5
     eslint: ^7.0.0
@@ -1193,13 +1193,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/shelljs@npm:0.8.7":
-  version: 0.8.7
-  resolution: "@types/shelljs@npm:0.8.7"
+"@types/shelljs@npm:0.8.8":
+  version: 0.8.8
+  resolution: "@types/shelljs@npm:0.8.8"
   dependencies:
     "@types/glob": "*"
     "@types/node": "*"
-  checksum: 3/a544d5b2addb83f1ed91c9fe394f63f6fa2fed234d76c2cd6e784ca4a3f5e1c55ec7b20fc634d07ccb63fc7b78b52c836448661f244bf28f4165973026feed22
+  checksum: 3/faf9d4aa31e83c46d5451221e614b437b11bfc289208d6016aab7181af284cef38d7a009a16fa73abe9bc578e0f206d7032023f9282edc7f6601c62c4a6c26ed
   languageName: node
   linkType: hard
 
