@@ -1,6 +1,6 @@
 {
   "name": "@efrem/initjs",
-  "version": "3.5.0",
+  "version": "3.6.0",
   "main": "dist/index.js",
   "repository": "https://github.com/MrEfrem/initjs.git",
   "author": "MrEfrem <mr.efrem@gmail.com>",
@@ -10,7 +10,7 @@
     "outdated": "yarn upgrade-interactive",
     "build": "babel src -d dist",
     "lint": "eslint src/**/*.js",
-    "prepublish": "yarn lint && yarn tsc && shx rm -rf files/cache && shx mkdir files/cache && shx mkdir files/cache/yarn && shx cp yarn.lock files/cache && shx cp .pnp.js files/cache/pnp.js && shx cp -R .yarn/cache files/cache/yarn/cache && shx mv files/cache/yarn/cache/.gitignore files/cache/yarn/cache/gitignore && shx cp -R .yarn/plugins files/cache/yarn/plugins && shx cp -R .yarn/releases files/cache/yarn/releases && shx cp -R .vscode files/cache/vscode && yarn build"
+    "prepublish": "yarn lint && yarn tsc && shx rm -rf files/cache && shx mkdir files/cache && shx mkdir files/cache/yarn && shx cp yarn.lock files/cache && shx cp .pnp.js files/cache/pnp.js && shx cp .yarnrc.yml files/cache/yarnrc.yml && shx cp -R .yarn/cache files/cache/yarn/cache && shx mv files/cache/yarn/cache/.gitignore files/cache/yarn/cache/gitignore && shx cp -R .yarn/plugins files/cache/yarn/plugins && shx cp -R .yarn/releases files/cache/yarn/releases && shx cp -R .vscode files/cache/vscode && yarn build"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
@@ -18,7 +18,7 @@
     "@babel/preset-env": "^7.9.6",
     "@babel/register": "^7.9.0",
     "@types/core-js": "2.5.3",
-    "@types/node": "^14.0.4",
+    "@types/node": "^14.0.5",
     "@types/shelljs": "0.8.8",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.0.0",

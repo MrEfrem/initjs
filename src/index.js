@@ -128,7 +128,7 @@ if (projectDir || !existsPackageJSON) {
   }
 }
 
-if (yarnMajorVersion === 1) {
+if (yarnMajorVersion === 1 || projectDir || !existsPackageJSON) {
   // Copy Yarn files/cache/yarn/plugins files to .yarn/plugins
   try {
     shell.mkdir('-p', '.yarn');
@@ -150,53 +150,35 @@ if (yarnMajorVersion === 1) {
     console.error('Error copy Yarn releases', err);
   }
 
-  if (yarnMinorVersion < 22) {
-    try {
-      execSync(`yarn policies set-version berry`);
-      console.log(`yarn policies berry is set`);
-    } catch (err) {
-      console.error(`Error setting yarn policies berry`, err);
-      process.exit(1);
-    }
-  } else {
-    try {
-      execSync(`yarn set version berry`);
-      console.log(`yarn version berry is set`);
-    } catch (err) {
-      console.error(`Error setting yarn version berry`, err);
-      process.exit(1);
-    }
-  }
-}
-
-if (!(existsPackageJSON && yarnMajorVersion === 2)) {
-  let yarnConf;
+  // Copy .yarnrc.yml
   try {
-    yarnConf = fs.readFileSync('.yarnrc.yml', { flag: 'a+' }).toString();
+    fs.copyFileSync(`${__dirname}/../files/cache/yarnrc.yml`, '.yarnrc.yml');
+    console.log('Copied .yarnrc.yml file');
   } catch (err) {
-    console.error(`.yarnrc.yml isn't found in the current directory`, err);
-    process.exit(1);
+    console.error('Error copying .yarnrc.yml file', err);
   }
-  try {
-    fs.writeFileSync(
-      '.yarnrc.yml',
-      `${yarnConf}enableGlobalCache: ${enableGlobalCache}\n` +
-        'plugins:\n' +
-        '  - path: .yarn/plugins/@yarnpkg/plugin-interactive-tools.js\n' +
-        '    spec: "@yarnpkg/plugin-interactive-tools"\n' +
-        '  - path: .yarn/plugins/@yarnpkg/plugin-typescript.js\n' +
-        '    spec: "@yarnpkg/plugin-typescript"\n'
-    );
-    if (enableGlobalCache) {
+
+  if (enableGlobalCache) {
+    let yarnConf;
+    try {
+      yarnConf = fs.readFileSync('.yarnrc.yml', { flag: 'a+' }).toString();
+    } catch (err) {
+      console.error(`.yarnrc.yml isn't found in the current directory`, err);
+      process.exit(1);
+    }
+    try {
+      yarnConf = yarnConf.replace(
+        'enableGlobalCache: false',
+        'enableGlobalCache: true'
+      );
+      fs.writeFileSync('.yarnrc.yml', yarnConf);
       console.log('Global cache enabled');
+    } catch (err) {
+      console.error('Error writing to .yarnrc.yml', err);
+      process.exit(1);
     }
-  } catch (err) {
-    console.error('Error writing to .yarnrc.yml', err);
-    process.exit(1);
   }
-}
-
-if (yarnMajorVersion === 2) {
+} else {
   try {
     execSync('yarn set version latest');
     execSync('yarn');
@@ -232,11 +214,6 @@ try {
   process.exit(1);
 }
 
-let newProject = false;
-if (projectDir || !existsPackageJSON) {
-  newProject = true;
-}
-
 // Fill package.json
 if (!targetPackageJSON.scripts) {
   targetPackageJSON.scripts = {};
@@ -245,21 +222,19 @@ if (!targetPackageJSON.scripts.outdated) {
   targetPackageJSON.scripts.outdated = 'yarn upgrade-interactive';
 }
 
-if (newProject) {
+if (projectDir || !existsPackageJSON) {
   targetPackageJSON.scripts.start = 'node -r @babel/register src/index.js';
   targetPackageJSON.scripts.build = 'babel src -d dist';
   targetPackageJSON.scripts.exec = 'node dist/index.js';
   targetPackageJSON.main = 'dist/index.js';
 
-  if (!enableGlobalCache) {
-    // Copy main and dev dependencies from a source package.json
-    // to a new package.json
-    if ('devDependencies' in sourcePackageJSON) {
-      targetPackageJSON.devDependencies = sourcePackageJSON['devDependencies'];
-    }
-    if ('dependencies' in sourcePackageJSON) {
-      targetPackageJSON.dependencies = sourcePackageJSON['dependencies'];
-    }
+  // Copy main and dev dependencies from a source package.json
+  // to a new package.json
+  if ('devDependencies' in sourcePackageJSON) {
+    targetPackageJSON.devDependencies = sourcePackageJSON['devDependencies'];
+  }
+  if ('dependencies' in sourcePackageJSON) {
+    targetPackageJSON.dependencies = sourcePackageJSON['dependencies'];
   }
 }
 
@@ -271,7 +246,7 @@ try {
   process.exit(1);
 }
 
-if (newProject) {
+if (yarnMajorVersion === 1 || projectDir || !existsPackageJSON) {
   if (!enableGlobalCache) {
     // Copy Yarn files/cache/yarn/cache files to .yarn/cache
     try {
@@ -282,20 +257,22 @@ if (newProject) {
       console.error('Error copy Yarn cache files', err);
     }
 
-    // Copy yarn.lock
-    try {
-      fs.copyFileSync(`${__dirname}/../files/cache/yarn.lock`, 'yarn.lock');
-      console.log('Copied yarn.lock file');
-    } catch (err) {
-      console.error('Error copying yarn.lock file', err);
-    }
-
     // Copy .pnp.js
     try {
       fs.copyFileSync(`${__dirname}/../files/cache/pnp.js`, '.pnp.js');
       console.log('Copied .pnp.js file');
     } catch (err) {
       console.error('Error copying .pnp.js file', err);
+    }
+  }
+
+  if (projectDir || !existsPackageJSON) {
+    // Copy yarn.lock
+    try {
+      fs.copyFileSync(`${__dirname}/../files/cache/yarn.lock`, 'yarn.lock');
+      console.log('Copied yarn.lock file');
+    } catch (err) {
+      console.error('Error copying yarn.lock file', err);
     }
 
     // Install other packages
@@ -306,34 +283,26 @@ if (newProject) {
       console.error('Error installing other packages', err);
       process.exit(1);
     }
-  }
 
-  // Create src directory and copy index.js
-  try {
-    fs.mkdirSync('src');
-    console.log('Created directory: src');
-  } catch (err) {
-    console.error(`Error creating directory "src"`, err);
-    process.exit(1);
-  }
-  try {
-    fs.copyFileSync(`${__dirname}/../files/index.js`, 'src/index.js');
-    console.log(`Copied JS file: src/index.js`);
-  } catch (err) {
-    console.error(`Error copying JS file src/index.js`, err);
-    process.exit(1);
-  }
-
-  // Copy Yarn files/cache/vscode files to .vscode
-  try {
-    shell.cp('-R', `${__dirname}/../files/cache/vscode`, '.vscode');
-    console.log('Copied VSCode settings');
-  } catch (err) {
-    console.error('Copied VSCode settings', err);
+    // Create src directory and copy index.js
+    try {
+      fs.mkdirSync('src');
+      console.log('Created directory: src');
+    } catch (err) {
+      console.error(`Error creating directory "src"`, err);
+      process.exit(1);
+    }
+    try {
+      fs.copyFileSync(`${__dirname}/../files/index.js`, 'src/index.js');
+      console.log(`Copied JS file: src/index.js`);
+    } catch (err) {
+      console.error(`Error copying JS file src/index.js`, err);
+      process.exit(1);
+    }
   }
 }
 
-if (!(newProject && !enableGlobalCache)) {
+if (!(projectDir || !existsPackageJSON)) {
   let actualBasisDependencies = [];
   let actualBasisDevDependencies = [];
   for (let basisDependency of basisDependencies) {
@@ -404,7 +373,15 @@ for (let filename of basisPackagesConfigFiles) {
   }
 }
 
-if (yarnMajorVersion === 2) {
+if (yarnMajorVersion === 1 || projectDir || !existsPackageJSON) {
+  // Copy Yarn files/cache/vscode files to .vscode
+  try {
+    shell.cp('-R', `${__dirname}/../files/cache/vscode`, '.vscode');
+    console.log('Copied VSCode settings');
+  } catch (err) {
+    console.error('Copied VSCode settings', err);
+  }
+} else {
   // Install Editor SDKs
   try {
     execSync(`yarn dlx @yarnpkg/pnpify --sdk`);
