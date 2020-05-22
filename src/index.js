@@ -232,11 +232,10 @@ if (yarnMajorVersion === 1 || projectDir || !existsPackageJSON) {
     }
   } catch (err) {
     console.error('Error getting the yarn globaFolder config value', err);
-    process.exit(1);
   }
   try {
     shell.mkdir('-p', yarnCachePath);
-    shell.cp('-R', `${__dirname}/../files/cache/yarn/cache/*`, yarnCachePath);
+    shell.cp('-Rn', `${__dirname}/../files/cache/yarn/cache/*`, yarnCachePath);
     console.log(
       `Copied Yarn cache files to the cache folder: ${yarnCachePath}`
     );
