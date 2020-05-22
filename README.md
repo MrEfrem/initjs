@@ -5,13 +5,13 @@
 ### Yarn 2 (berry)
 
 ```bash
-yarn dlx @efrem/initjs [<project name>] [--enable-global-cache] [--overwrite-config-files]
+yarn dlx @efrem/initjs [<project name>] [--overwrite-config-files]
 ```
 
 ### Npm
 
 ```bash
-npx @efrem/initjs [<project name>] [--enable-global-cache] [--overwrite-config-files]
+npx @efrem/initjs [<project name>] [--overwrite-config-files]
 ```
 
 - `<project name>` is optional. If it isn't set then:
@@ -24,7 +24,6 @@ npx @efrem/initjs [<project name>] [--enable-global-cache] [--overwrite-config-f
 
   2. If `package.json` isn't found in a current directory then a new `Yarn 2` project will be created.
 
-- `--enable-global-cache` is optional and will act only in a new `Yarn 2` project. I.e. existing `Yarn 2` project won't be fixed.
 - `--overwrite-config-files` is optional and will enforce overwriting of all dependencies config files (`.babelrc`, `.eslintrc`, `.gitignore` etc.)
 
 ## VSCode

@@ -31,19 +31,14 @@ const basisPackagesConfigFiles = [
   'README.md',
 ];
 
-const ARG_ENABLE_GLOBAL_CACHE = '--enable-global-cache';
 const ARG_OVERWRITE_CONFIG_FILES = '--overwrite-config-files';
 
 const cliArgs = process.argv.slice(2);
 let projectDir = null;
-let enableGlobalCache = false;
 let overwriteConfigFiles = false;
 for (let arg of cliArgs) {
   if (arg.slice(0, 2) === '--' || arg[0] === '-') {
     switch (arg) {
-      case ARG_ENABLE_GLOBAL_CACHE:
-        enableGlobalCache = true;
-        break;
       case ARG_OVERWRITE_CONFIG_FILES:
         overwriteConfigFiles = true;
         break;
@@ -93,12 +88,6 @@ if (
   (yarnMinorVersion < 17 || (yarnMinorVersion === 17 && yarnPatchVersion < 2))
 ) {
   throw new Error('Upgrade Global Yarn to the latest 1 version');
-}
-
-if (enableGlobalCache && existsPackageJSON && yarnMajorVersion === 2) {
-  throw new Error(
-    `The command-line argument ${ARG_ENABLE_GLOBAL_CACHE} can be used only with a new project`
-  );
 }
 
 if (overwriteConfigFiles && projectDir) {
@@ -156,27 +145,6 @@ if (yarnMajorVersion === 1 || projectDir || !existsPackageJSON) {
     console.log('Copied .yarnrc.yml file');
   } catch (err) {
     console.error('Error copying .yarnrc.yml file', err);
-  }
-
-  if (enableGlobalCache) {
-    let yarnConf;
-    try {
-      yarnConf = fs.readFileSync('.yarnrc.yml', { flag: 'a+' }).toString();
-    } catch (err) {
-      console.error(`.yarnrc.yml isn't found in the current directory`, err);
-      process.exit(1);
-    }
-    try {
-      yarnConf = yarnConf.replace(
-        'enableGlobalCache: false',
-        'enableGlobalCache: true'
-      );
-      fs.writeFileSync('.yarnrc.yml', yarnConf);
-      console.log('Global cache enabled');
-    } catch (err) {
-      console.error('Error writing to .yarnrc.yml', err);
-      process.exit(1);
-    }
   }
 } else {
   try {
@@ -242,28 +210,46 @@ if (projectDir || !existsPackageJSON) {
 try {
   fs.writeFileSync('package.json', JSON.stringify(targetPackageJSON));
 } catch (err) {
-  console.error(`Error writing to package.json`, err);
+  console.error('Error writing to package.json', err);
   process.exit(1);
 }
 
 if (yarnMajorVersion === 1 || projectDir || !existsPackageJSON) {
-  if (!enableGlobalCache) {
-    // Copy Yarn files/cache/yarn/cache files to .yarn/cache
-    try {
-      shell.cp('-R', `${__dirname}/../files/cache/yarn/cache`, '.yarn/cache');
-      shell.mv('.yarn/cache/gitignore', '.yarn/cache/.gitignore');
-      console.log('Copied Yarn cache files');
-    } catch (err) {
-      console.error('Error copy Yarn cache files', err);
+  // Copy Yarn files/cache/yarn/cache files to the globalCache config path if it's available
+  // (because of copy-on-write feature by default used in MacOS APFS, ZFS, BTRFS)
+  // otherwise we will use <PROJECT_DIR>/.yarn/cache
+  let yarnCachePath = '.yarn/cache';
+  try {
+    const globalFolder = execSync('yarn config get globalFolder')
+      .toString()
+      .trim();
+    if (globalFolder) {
+      yarnCachePath = `${globalFolder}/cache`;
+    } else {
+      console.error(
+        `yarn globaFolder config value is empty so we will use ${yarnCachePath}`
+      );
     }
+  } catch (err) {
+    console.error('Error getting the yarn globaFolder config value', err);
+    process.exit(1);
+  }
+  try {
+    shell.mkdir('-p', yarnCachePath);
+    shell.cp('-R', `${__dirname}/../files/cache/yarn/cache/*`, yarnCachePath);
+    console.log(
+      `Copied Yarn cache files to the cache folder: ${yarnCachePath}`
+    );
+  } catch (err) {
+    console.error('Error copy Yarn cache files', err);
+  }
 
-    // Copy .pnp.js
-    try {
-      fs.copyFileSync(`${__dirname}/../files/cache/pnp.js`, '.pnp.js');
-      console.log('Copied .pnp.js file');
-    } catch (err) {
-      console.error('Error copying .pnp.js file', err);
-    }
+  // Copy .pnp.js
+  try {
+    fs.copyFileSync(`${__dirname}/../files/cache/pnp.js`, '.pnp.js');
+    console.log('Copied .pnp.js file');
+  } catch (err) {
+    console.error('Error copying .pnp.js file', err);
   }
 
   if (projectDir || !existsPackageJSON) {
