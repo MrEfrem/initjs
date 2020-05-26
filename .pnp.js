@@ -67,7 +67,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ],
       [
         "eslint",
-        "npm:7.0.0"
+        "npm:7.1.0"
       ],
       [
         "husky",
@@ -110,7 +110,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/shelljs", "npm:0.8.8"],
             ["babel-eslint", "virtual:c297c2a07db5b6ba633009827425bb4d08be838492ab2afde86c533187c0c49d364271cacf4573b1a32a1a10212a9c95af48fc22af9d443778854d0498e1312d#npm:10.1.0"],
             ["core-js", "npm:3.6.5"],
-            ["eslint", "npm:7.0.0"],
+            ["eslint", "npm:7.1.0"],
             ["husky", "npm:4.2.5"],
             ["prettier", "npm:2.0.5"],
             ["pretty-quick", "virtual:c297c2a07db5b6ba633009827425bb4d08be838492ab2afde86c533187c0c49d364271cacf4573b1a32a1a10212a9c95af48fc22af9d443778854d0498e1312d#npm:2.0.1"],
@@ -1424,7 +1424,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/shelljs", "npm:0.8.8"],
             ["babel-eslint", "virtual:c297c2a07db5b6ba633009827425bb4d08be838492ab2afde86c533187c0c49d364271cacf4573b1a32a1a10212a9c95af48fc22af9d443778854d0498e1312d#npm:10.1.0"],
             ["core-js", "npm:3.6.5"],
-            ["eslint", "npm:7.0.0"],
+            ["eslint", "npm:7.1.0"],
             ["husky", "npm:4.2.5"],
             ["prettier", "npm:2.0.5"],
             ["pretty-quick", "virtual:c297c2a07db5b6ba633009827425bb4d08be838492ab2afde86c533187c0c49d364271cacf4573b1a32a1a10212a9c95af48fc22af9d443778854d0498e1312d#npm:2.0.1"],
@@ -1818,7 +1818,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/parser", "npm:7.9.4"],
             ["@babel/traverse", "npm:7.9.5"],
             ["@babel/types", "npm:7.9.5"],
-            ["eslint", "npm:7.0.0"],
+            ["eslint", "npm:7.1.0"],
             ["eslint-visitor-keys", "npm:1.1.0"],
             ["resolve", "patch:resolve@npm%3A1.16.1#builtin<compat/resolve>::version=1.16.1&hash=e7677c"]
           ],
@@ -2549,10 +2549,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["eslint", [
-        ["npm:7.0.0", {
-          "packageLocation": "./.yarn/cache/eslint-npm-7.0.0-5056483dc5-3.zip/node_modules/eslint/",
+        ["npm:7.1.0", {
+          "packageLocation": "./.yarn/cache/eslint-npm-7.1.0-335909a6b9-3.zip/node_modules/eslint/",
           "packageDependencies": [
-            ["eslint", "npm:7.0.0"],
+            ["eslint", "npm:7.1.0"],
             ["@babel/code-frame", "npm:7.8.3"],
             ["ajv", "npm:6.12.1"],
             ["chalk", "npm:4.0.0"],

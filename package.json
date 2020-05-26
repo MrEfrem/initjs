@@ -1,6 +1,6 @@
 {
   "name": "@efrem/initjs",
-  "version": "4.1.0",
+  "version": "4.2.0",
   "main": "dist/index.js",
   "repository": "https://github.com/MrEfrem/initjs.git",
   "author": "MrEfrem <mr.efrem@gmail.com>",
@@ -42,7 +42,7 @@
     "@types/node": "^14.0.5",
     "@types/shelljs": "0.8.8",
     "babel-eslint": "^10.1.0",
-    "eslint": "^7.0.0",
+    "eslint": "^7.1.0",
     "husky": "^4.2.5",
     "prettier": "^2.0.5",
     "pretty-quick": "^2.0.1",

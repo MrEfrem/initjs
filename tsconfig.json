@@ -10,7 +10,8 @@
     "strict": true,
     "esModuleInterop": true,
     "noFallthroughCasesInSwitch": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
   },
   "exclude": [
     "node_modules",

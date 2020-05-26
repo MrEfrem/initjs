@@ -1121,7 +1121,7 @@ __metadata:
     "@types/shelljs": 0.8.8
     babel-eslint: ^10.1.0
     core-js: ^3.6.5
-    eslint: ^7.0.0
+    eslint: ^7.1.0
     husky: ^4.2.5
     prettier: ^2.0.5
     pretty-quick: ^2.0.1
@@ -2125,9 +2125,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^7.0.0":
-  version: 7.0.0
-  resolution: "eslint@npm:7.0.0"
+"eslint@npm:^7.1.0":
+  version: 7.1.0
+  resolution: "eslint@npm:7.1.0"
   dependencies:
     "@babel/code-frame": ^7.0.0
     ajv: ^6.10.0
@@ -2167,7 +2167,7 @@ __metadata:
     v8-compile-cache: ^2.0.3
   bin:
     eslint: bin/eslint.js
-  checksum: 3/6f5b92b843767f459b60f52312da7ba31c34b8d958f29c1fa96d1c564c270ebe272250f81fe8f1368ddfe2ec2fd3d89c6a160b18effe1269853f7e35c7010317
+  checksum: 3/26b8bc7947b9b8c42f05965a24cd9ea261f0d7b2b5993135bdac403bc65df7812338a2a0999810cae865ff877ec0e17eb818534179d765b7ed36a3a90c3a69b3
   languageName: node
   linkType: hard
 

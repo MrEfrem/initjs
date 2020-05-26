@@ -120,8 +120,12 @@ if (projectDir || !existsPackageJSON) {
 if (yarnMajorVersion === 1 || projectDir || !existsPackageJSON) {
   // Copy Yarn files/cache/yarn/plugins files to .yarn/plugins
   try {
-    shell.mkdir('-p', '.yarn');
-    shell.cp('-R', `${__dirname}/../files/cache/yarn/plugins`, '.yarn/plugins');
+    shell.mkdir('-p', '.yarn/plugins');
+    shell.cp(
+      '-Rn',
+      `${__dirname}/../files/cache/yarn/plugins/*`,
+      '.yarn/plugins'
+    );
     console.log('Copied Yarn plugins');
   } catch (err) {
     console.error('Error copy Yarn plugins', err);
@@ -129,9 +133,10 @@ if (yarnMajorVersion === 1 || projectDir || !existsPackageJSON) {
 
   // Copy Yarn files/cache/yarn/releases files to .yarn/releases
   try {
+    shell.mkdir('-p', '.yarn/releases');
     shell.cp(
-      '-R',
-      `${__dirname}/../files/cache/yarn/releases`,
+      '-Rn',
+      `${__dirname}/../files/cache/yarn/releases/*`,
       '.yarn/releases'
     );
     console.log('Copied Yarn releases');
@@ -361,7 +366,8 @@ for (let filename of basisPackagesConfigFiles) {
 if (yarnMajorVersion === 1 || projectDir || !existsPackageJSON) {
   // Copy Yarn files/cache/vscode files to .vscode
   try {
-    shell.cp('-R', `${__dirname}/../files/cache/vscode`, '.vscode');
+    shell.mkdir('-p', '.vscode');
+    shell.cp('-Rn', `${__dirname}/../files/cache/vscode/*`, '.vscode');
     console.log('Copied VSCode settings');
   } catch (err) {
     console.error('Copied VSCode settings', err);

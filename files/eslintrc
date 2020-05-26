@@ -26,6 +26,7 @@
     "radix": 2,
     "no-new-wrappers": 2,
     "no-restricted-globals": [2, "isNaN", "isFinite"],
-    "require-atomic-updates": 0
+    "require-atomic-updates": 0,
+    "no-shadow": ["error", { "builtinGlobals": true, "hoist": "all" }]
   }
 }
