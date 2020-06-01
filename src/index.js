@@ -199,6 +199,7 @@ if (projectDir || !existsPackageJSON) {
   targetPackageJSON.scripts.start = 'node -r @babel/register src/index.js';
   targetPackageJSON.scripts.build = 'babel src -d dist';
   targetPackageJSON.scripts.exec = 'node dist/index.js';
+  targetPackageJSON.scripts.audit = 'yarn dlx @efrem/auditdeps';
   targetPackageJSON.main = 'dist/index.js';
 
   // Copy main and dev dependencies from a source package.json
