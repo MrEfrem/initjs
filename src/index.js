@@ -371,15 +371,31 @@ if (yarnMajorVersion === 1 || projectDir || !existsPackageJSON) {
     shell.cp('-Rn', `${__dirname}/../files/cache/vscode/*`, '.vscode');
     console.log('Copied VSCode settings');
   } catch (err) {
-    console.error('Copied VSCode settings', err);
+    console.error('Error copy VSCode settings', err);
+  }
+  // Copy Yarn files/cache/vim files to .vim
+  try {
+    shell.mkdir('-p', '.vim');
+    shell.cp('-Rn', `${__dirname}/../files/cache/vim/*`, '.vim');
+    console.log('Copied Vim settings');
+  } catch (err) {
+    console.error('Error copy Vim settings', err);
+  }
+  // Copy Yarn files/cache/yarn/sdks files to .yarn/sdks
+  try {
+    shell.mkdir('-p', '.yarn/sdks');
+    shell.cp('-Rn', `${__dirname}/../files/cache/yarn/sdks/*`, '.yarn/sdks');
+    console.log('Copied Yarn Editor SDKs: VSCode, Vim');
+  } catch (err) {
+    console.error('Error copy Yarn Editor SDKs', err);
   }
 } else {
   // Install Editor SDKs
   try {
-    execSync(`yarn dlx @yarnpkg/pnpify --sdk`);
-    console.log(`Editor SDKs installed`);
+    execSync('yarn dlx @yarnpkg/pnpify --sdk vscode vim');
+    console.log(`Yarn Editor SDKs installed: VSCode, Vim`);
   } catch (err) {
-    console.error('Error installing Editor SDKs', err);
+    console.error('Error installing Yarn Editor SDKs', err);
     process.exit(1);
   }
 }
